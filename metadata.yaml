@@ -4,9 +4,9 @@ desc: 为大模型注册 get_celestial_position 工具，查询当前某颗天�
   支持太阳系天体、本地恒星表（专名、拜耳命名、弗兰斯蒂德编号）以及 Messier/NGC/IC 天体，
   大部分常用目标无需联网即可解析。
 short_desc: 查询天体的高度角和方位角。
-author: Inertial
+author: Inertialobs
 version: 1.0.0
-# repo: https://github.com/<your-name>/astrbot_plugin_celestial_position
+repo: https://github.com/inertialobs/astrbot_plugin_celestial_position
 astrbot_version: ">=4.17.0"
 tags:
   - astronomy

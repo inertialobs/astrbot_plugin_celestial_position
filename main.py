@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Copyright (C) 2026 Inertial
+# Copyright (C) 2026 Inertialobs
 
+import asyncio
 import json
 import re
 import unicodedata
@@ -21,9 +22,6 @@ from astrbot.api.star import Context, Star
 from astrbot.core.agent.run_context import ContextWrapper
 from astrbot.core.agent.tool import FunctionTool, ToolExecResult
 from astrbot.core.astr_agent_context import AstrAgentContext
-
-iers.conf.auto_download = False
-iers.conf.auto_max_age = None
 
 SOLAR_SYSTEM_BODIES = frozenset(
     {
@@ -211,7 +209,7 @@ class CelestialPositionTool(FunctionTool[AstrAgentContext]):
     async def call(
         self, context: ContextWrapper[AstrAgentContext], **kwargs
     ) -> ToolExecResult:
-        logger.info("celestial plugin activated")
+        logger.debug("celestial plugin activated")
         object_name = str(kwargs.get("object_name", "")).strip()
         if not object_name:
             return "Error: the 'object_name' parameter is required."
@@ -247,7 +245,7 @@ class CelestialPositionTool(FunctionTool[AstrAgentContext]):
                     frame="icrs",
                 )
             else:
-                target = SkyCoord.from_name(object_name)
+                target = await asyncio.to_thread(SkyCoord.from_name, object_name)
         except Exception as e:
             logger.warning(
                 "Failed to resolve celestial object '%s': %s", object_name, e
@@ -259,7 +257,11 @@ class CelestialPositionTool(FunctionTool[AstrAgentContext]):
                 "catalog designation resolvable online (e.g. 'M31', 'NGC 224')."
             )
 
-        altaz = target.transform_to(AltAz(obstime=obstime, location=location))
+        with (
+            iers.conf.set_temp("auto_download", False),
+            iers.conf.set_temp("auto_max_age", None),
+        ):
+            altaz = target.transform_to(AltAz(obstime=obstime, location=location))
         altitude = float(altaz.alt.deg)
         azimuth = float(altaz.az.deg)
         compass = _COMPASS_POINTS[int((azimuth + 22.5) % 360 // 45)]
