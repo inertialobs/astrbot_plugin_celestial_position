@@ -1,0 +1,20 @@
+astrbot_plugin_celestial_position
+
+Star and deep-sky object catalog data
+=====================================
+
+Files: star_catalog.json, dso_catalog.json
+
+Derived from the HYG Database v4.1 by David Nash:
+https://codeberg.org/astronexus/hyg
+
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA 4.0):
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Changes: the source data was filtered to stars with proper names, Bayer or
+Flamsteed designations and to Messier/NGC/IC objects, then converted to a
+compact JSON format. Coordinates are ICRS/J2000.
+
+The plugin source code is licensed under GPL-3.0-or-later (see LICENSE).
+The catalog data remains under CC BY-SA 4.0.

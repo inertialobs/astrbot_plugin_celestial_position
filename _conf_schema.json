@@ -1,0 +1,26 @@
+{
+  "latitude": {
+    "description": "观测点纬度（北纬为正）。",
+    "type": "float",
+    "default": 31.3,
+    "hint": "范围 -90 到 90，北纬为正。"
+  },
+  "longitude": {
+    "description": "观测点经度（东经为正）。",
+    "type": "float",
+    "default": 120.5,
+    "hint": "范围 -180 到 180，东经为正。"
+  },
+  "elevation": {
+    "description": "观测点海拔，单位米。",
+    "type": "float",
+    "default": 15.0,
+    "hint": "用于地平坐标的大气/地形修正。"
+  },
+  "timezone": {
+    "description": "观测点时区（IANA 名称）。",
+    "type": "string",
+    "default": "Asia/Shanghai",
+    "hint": "仅用于显示本地时间，例如 Asia/Shanghai。"
+  }
+}
