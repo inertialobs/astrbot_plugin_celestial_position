@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo.png" alt="天体位置查询" width="160" />
+<img src="https://raw.githubusercontent.com/inertialobs/astrbot_plugin_celestial_position/master/logo.png" alt="天体位置查询" width="160" />
 
 # 天体位置查询
 
